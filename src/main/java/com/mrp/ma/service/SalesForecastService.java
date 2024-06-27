@@ -60,11 +60,11 @@ public class SalesForecastService {
         double[] wmaErrors = calculateErrors(sales, wma, windowSize);
 
         PerbandinganResponse perbandinganResponse = new PerbandinganResponse(
-                "SMA " + windowSize + " Bulan",
+                "SMA " + windowSize + " Tahun",
                 formatDouble(sma.get(sma.size() - 1)),
                 smaErrors[0],
                 smaErrors[1],
-                "WMA " + windowSize + " Bulan",
+                "WMA " + windowSize + " Tahun",
                 formatDouble(wma.get(wma.size() - 1)),
                 wmaErrors[0],
                 wmaErrors[1]
@@ -73,8 +73,8 @@ public class SalesForecastService {
         List<PerhitunganResponse.DetailPerhitunganResponse> smaCalculations = prepareCalculationResponse(sales, sma, years);
         List<PerhitunganResponse.DetailPerhitunganResponse> wmaCalculations = prepareCalculationResponse(sales, wma, years);
 
-        PerhitunganResponse smaData = new PerhitunganResponse(sma.get(sma.size() - 1), smaErrors[2], smaErrors[3], smaCalculations);
-        PerhitunganResponse wmaData = new PerhitunganResponse(wma.get(wma.size() - 1), wmaErrors[2], wmaErrors[3], wmaCalculations);
+        PerhitunganResponse smaData = new PerhitunganResponse(formatDouble(sma.get(sma.size() - 1)), smaErrors[2], smaErrors[3], smaCalculations);
+        PerhitunganResponse wmaData = new PerhitunganResponse(formatDouble(wma.get(wma.size() - 1)), wmaErrors[2], wmaErrors[3], wmaCalculations);
 
         return new ForecastingResponse(perbandinganResponse, smaData, wmaData);
     }
